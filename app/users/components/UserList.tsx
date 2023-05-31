@@ -28,7 +28,7 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
         <div className="flex-col">
           <div
             className="
-              text-xl 
+              text-lg 
               font-bold 
               text-neutral-600 
               py-4
