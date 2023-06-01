@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import { HiChevronLeft } from 'react-icons/hi';
 import { HiEllipsisHorizontal } from 'react-icons/hi2';
+import ProfileDrawer from './ProfileDrawer';
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -27,6 +28,11 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
   }, [conversation]);
   return (
     <>
+      <ProfileDrawer
+        data={conversation}
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      />
       <div className="bg-white w-full flex justify-between items-center shadow-sm border-b-[1px] sm:px-4 py-3 px-4 lg:px-6">
         <div className="flex gap-3 items-center">
           <Link
