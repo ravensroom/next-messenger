@@ -77,9 +77,15 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
             <p className="text-sm font-medium text-gray-900">
               {data.name || otherUser.name}
             </p>
-            {true && (
-              <p className="text-xs text-gray-400 font-light">
-                {format(new Date(), 'p')}
+            {lastMessage?.createdAt && (
+              <p
+                className="
+                  text-xs 
+                  text-gray-400 
+                  font-light
+                "
+              >
+                {format(new Date(lastMessage.createdAt), 'p')}
               </p>
             )}
           </div>

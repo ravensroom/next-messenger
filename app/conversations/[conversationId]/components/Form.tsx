@@ -5,6 +5,7 @@ import axios from 'axios';
 import { FieldValues, useForm, SubmitHandler } from 'react-hook-form';
 import { HiPaperAirplane, HiPhoto } from 'react-icons/hi2';
 import MessageInput from './MessageInput';
+import { CldUploadButton } from 'next-cloudinary';
 
 const Form = () => {
   const { conversationId } = useConversation();
@@ -21,14 +22,29 @@ const Form = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setValue('message', '', { shouldValidate: true });
-    axios.post('/api/message', {
+    axios.post('/api/messages', {
       ...data,
       conversationId,
     });
   };
+
+  const handleUpload = (result: any) => {
+    axios.post('/api/messages', {
+      image: result?.info?.secure_url,
+      conversationId,
+    });
+  };
+
   return (
     <div className="p-4 bg-white border-t flex items-center gap-2 lg:gap-4 w-full">
-      <HiPhoto size={30} className="text-sky-500" />
+      <CldUploadButton
+        options={{ maxFiles: 1 }}
+        onUpload={handleUpload}
+        uploadPreset="rpun4n0y"
+      >
+        <HiPhoto size={30} className="text-sky-500" />
+      </CldUploadButton>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex gap-2 lg:gap-4 items-center w-full"
@@ -42,7 +58,7 @@ const Form = () => {
         />
         <button
           type="submit"
-          className="rounded-full p-2 bg-sky-500 hover:bg-sky-600 cursor-pointer transition"
+          className="rounded-full p-2 bg-sky-500 hover:bg-sky-600 active:bg-sky-800 cursor-pointer transition"
         >
           <HiPaperAirplane size={18} className="text-white" />
         </button>

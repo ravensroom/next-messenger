@@ -9,5 +9,5 @@ export default withAuth({
 
 // all matching routes will need to secure authentification
 export const config = {
-  matcher: ['/users/:path*'],
+  matcher: ['/users/:path*', '/conversations/:path*'],
 };
